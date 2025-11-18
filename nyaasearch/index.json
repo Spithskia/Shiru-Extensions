@@ -1,0 +1,34 @@
+[
+  {
+    "id": "nyaa",
+    "name": "Nyaa",
+    "version": "0.0.2",
+    "main": "sources/nyaa",
+    "update": "gh:Spithskia/Shiru-Extensions/nyaasearch",
+    "type": "torrent",
+    "speed": "slow",
+    "accuracy": "medium",
+    "regions": [
+      "NL"
+    ],
+    "description" : "A public tracker with limited functionality, it lacks a proper API and advanced search. In some cases it will be harder to find niche or multi-season series without encountering unrelated or inaccurate results.",
+    "icon": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAk1BMVEVHcEz////8/v/9/v////8Ahf////////////94wP8Ahf8Chv8Ahf////////////8AhP8Ac/8Ahf8Ahf8Ahv8Ahf+Uzv8Ahf////8AhP8Ag/8glv8wnf/C5P/3/P/x+f9Apf8VkP/i8/+n1/8FiP8Li//c7/+c0f/R6/9NrP9dtP+Bxf+z3P+Szf9puf/p9f/9//99NKcpAAAAF3RSTlMA/v5AysvrCKj9OvGSiCH0IQZLsAronCIEXywAAANPSURBVFjDpZfntqowEIUhlmO9eiqZFHrv7/90NxEbIkFw/3C5FsxHyiSzR9PO+tnsFr9g9AkMlqYUwA51tJzvZx9aW59f31tDIXCyEKE4SV2MdV3Hy1Ubcdwpww2gOZayTHzRYfXvFr9Z9EYSQkB8P8eP0vX5bCgeiOHYaVZERTdeIi6E4/N4ACcpYgvrNe7T/DSLz92zcOKzLDbxgFZyJb+2T8YeJF6FB6UfxCR+vqE79pSb+CWJIczWVCxWK7zkCL+o5Uzb13HGArFdIESIQcu4xq9rr83Fb8WL1GaUMruMwjHhYiu1ZfOvNivXrUw8VksN4bd00PT3APhdgK4GWHlhvQFAeeLbbwDCMiCknDwF02MgkjyaCghTX56RgE8DIPH508mg1SRAVQZNPEnMKQBuG+cjPriGzwAocq7HewoAZcHthgF2SyTkitPWOW5dQBRAq6CEVwBP5IFf81oJ4BTaFeUKwC41RGYRp0AKQGUTow8Q0SgRTyHw+gFmCY818QZYe64cHtDE7QDM87wKv1NU4yu8sDz5mKw5bwPMsMiaaeVOp77fctnkOJOPfQ+b94B1aTuQPVvAk/xrWawrXIjnhLntXRDrSuhpnDF74i/8+7oaMnE6vIc8kG+dBhDaT+IhiO9fd70oxh0AJFZfvFhEPpTKBthyUrH93B8JUzQAaN7grM9fgV1hN1QASvn9nEK/PXJxFikAYk9R4Sj8Hassltaq42ytAzBUAB5QVwFwUwOUDs/NiO/1A7gNaovocJuQFPUCqDpe5GImHC57vJ3NEF220RgSDQzSqXBhWt2l8oCE80kfB1Ay62UAOIw9LiJPPPwiAPw0tqzHyxiZ+EUAOIWyOHGtPVfo8fl98uh1FwAClibUh3sI9GdQE+8Q7ffS0WS8qk03X9ti24xTcvq+78TqePjVFs1Ii+qWItyLiiKKIi/PucLhmPIMLrST2U/ikeYMWaGXSAuy0zbC7afVuHArSxj1ZQ3bbqTdZ+5Yd5gZ56X+/pENRz7aXlpJU0K3X7Ll+RtvsRFv7qDdp2ya/s3HO1x0qsKLY9O2zSYQKnEPLTaXxnEKIWa3eDGL1WF0o/B3bDXfs9VyVKOy6vTvH7P9fIn0YeFDq/3/D5ldc/bEu8EaAAAAAElFTkSuQmCC"
+  },
+  {
+    "id": "sukebei",
+    "name": "Sukebei",
+    "version": "0.0.2",
+    "main": "sources/sukebei",
+    "update": "gh:Spithskia/Shiru-Extensions/nyaasearch",
+    "type": "torrent",
+    "speed": "slow",
+    "accuracy": "medium",
+    "nsfw": true,
+    "regions": [
+      "LU",
+      "DE"
+    ],
+    "description" : "A public tracker with limited functionality, it lacks a proper API and advanced search. In some cases it will be harder to find niche or multi-season series without encountering unrelated or inaccurate results.",
+    "icon": "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"
+  }
+]
