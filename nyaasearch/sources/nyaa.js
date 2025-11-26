@@ -5,6 +5,7 @@ const QUALITIES = ['2160', '1080', '720', '540', '480']
 
 export default new class Nyaa extends AbstractSource {
     url = atob('aHR0cHM6Ly9ueWFhLnNpLz9wYWdlPXJzcw==')
+    tracker = encodeURIComponent(atob('aHR0cDovL255YWEudHJhY2tlci53Zjo3Nzc3L2Fubm91bmNl'))
 
     /**
      * @param {string[]} titles
@@ -61,7 +62,7 @@ export default new class Nyaa extends AbstractSource {
             const xml = await res.text()
 
             /** @type {import('./types').Nyaa[]} */
-            const data = [...parseNyaaFeed(xml)]
+            const data = [...parseNyaaFeed(this.tracker, xml)]
             return this.map(data, batch)
         }
         return []

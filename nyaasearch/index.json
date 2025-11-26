@@ -2,7 +2,7 @@
   {
     "id": "nyaa",
     "name": "Nyaa",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "main": "sources/nyaa",
     "update": "gh:Spithskia/Shiru-Extensions/nyaasearch",
     "type": "torrent",
@@ -17,7 +17,7 @@
   {
     "id": "sukebei",
     "name": "Sukebei",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "main": "sources/sukebei",
     "update": "gh:Spithskia/Shiru-Extensions/nyaasearch",
     "type": "torrent",

@@ -5,6 +5,7 @@ const QUALITIES = ['2160', '1080', '720', '540', '480']
 
 export default new class Sukebei extends AbstractSource {
   url = atob('aHR0cHM6Ly9zdWtlYmVpLm55YWEuc2kvP3BhZ2U9cnNz')
+  tracker = encodeURIComponent(atob('aHR0cDovL3N1a2ViZWkudHJhY2tlci53Zjo4ODg4L2Fubm91bmNl'))
 
   /**
    * @param {string[]} titles
@@ -61,7 +62,7 @@ export default new class Sukebei extends AbstractSource {
       const xml = await res.text()
 
       /** @type {import('./types').Nyaa[]} */
-      const data = [...parseNyaaFeed(xml)]
+      const data = [...parseNyaaFeed(this.tracker, xml)]
       return this.map(data, batch)
     }
     return []

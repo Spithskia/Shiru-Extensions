@@ -95,22 +95,24 @@ function decodeEntry(text) {
 }
 
 /**
+ * @param {string} tracker
  * @param {string} xml
  * @returns {import('./types').Nyaa[]}
  */
-export function parseNyaaFeed(xml) {
+export function parseNyaaFeed(tracker, xml) {
     const itemRegex = /<item>([\s\S]*?)<\/item>/g
     const items = []
     let match
-    while ((match = itemRegex.exec(xml)) !== null) items.push(createNyaaItem(match[1]))
+    while ((match = itemRegex.exec(xml)) !== null) items.push(createNyaaItem(tracker, match[1]))
     return items
 }
 
 /**
+ * @param {string} tracker
  * @param {string} itemXml
  * @returns {import('./types').Nyaa}
  */
-function createNyaaItem(itemXml) {
+function createNyaaItem(tracker, itemXml) {
     const getTag = (tag) => {
         const match = new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`, 'i').exec(itemXml)
         return match ? decodeEntry(match[1].trim()) : ''
@@ -121,9 +123,15 @@ function createNyaaItem(itemXml) {
         return match ? decodeEntry(match[1]) : ''
     }
 
+    const title = getTag('title') || '?'
+    const infoHash = getTag('nyaa:infoHash')
+    const magnet = infoHash ? `magnet:?xt=urn:btih:${infoHash}&dn=${encodeURIComponent(title)}&tr=${tracker}` : ''
+    // This link is notoriously slow to resolve, it's best to construct a magnet when possible.
+    const torrentLink = getAttribute('enclosure', 'url') || getTag('link') || ''
+
     return {
-        title: getTag('title') || '?',
-        link: getAttribute('enclosure', 'url') || getTag('link') || '?',
+        title,
+        link: magnet || torrentLink || '?',
         guid: {
             isPermaLink: getAttribute('guid', 'isPermaLink') === 'true' ? 'true' : 'false',
             '#text': getTag('guid') || '?',
@@ -132,7 +140,7 @@ function createNyaaItem(itemXml) {
         'nyaa:seeders': parseInt(getTag('nyaa:seeders')) || 0,
         'nyaa:leechers': parseInt(getTag('nyaa:leechers')) || 0,
         'nyaa:downloads': parseInt(getTag('nyaa:downloads')) || 0,
-        'nyaa:infoHash': getTag('nyaa:infoHash') || '?',
+        'nyaa:infoHash': infoHash || '?',
         'nyaa:categoryId': getTag('nyaa:categoryId') || '?',
         'nyaa:category': getTag('nyaa:category') || '?',
         'nyaa:size': getTag('nyaa:size') || '?',
