@@ -16,7 +16,7 @@ export default new class SeaDex extends AbstractSource {
       expand: 'trs'
     })
     const res = await fetch(`${this.url}?${query}`)
-    if (!res?.ok) throw new Error(`Failed to query source for results: HTTP ${res.status} ${res.statusText}`)
+    if (!res?.ok) throw new Error(`Failed to query source for results: HTTP ${res?.status} ${res?.statusText}`)
 
     /** @type {import('./types').SeaDex} */
     const { items } = await res.json()

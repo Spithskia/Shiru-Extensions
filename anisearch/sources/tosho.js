@@ -59,7 +59,7 @@ export default new class Tosho extends AbstractSource {
   async #query(queryString, { resolution, exclusions, episodeCount }, batch = false) {
     const query = this.#buildQuery({ resolution, exclusions })
     const res = await fetch(this.url + queryString + query)
-    if (!res?.ok) throw new Error(`Failed to query source for results: HTTP ${res.status} ${res.statusText}`)
+    if (!res?.ok) throw new Error(`Failed to query source for results: HTTP ${res?.status} ${res?.statusText}`)
 
     /** @type {import('./types').Tosho[]} */
     const data = await res.json()
