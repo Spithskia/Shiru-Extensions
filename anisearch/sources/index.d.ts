@@ -16,6 +16,7 @@ export interface SourceConfig {
     speed?: Speed // Should be the best estimate on how quickly a fetch takes to complete the query, some sites are slow and see a lot of traffic. You should not consider your location relative to the host for speed, the speed should be an average of various locations of users.
     accuracy?: Accuracy // How likely the results are to be matching the requested series, 'high' should only be used if the results are a guaranteed match to the query.
     regions?: ServerLocations[] // This should be the server location(s) e.g. nodes of the site used to fetch the results for your extension
+    deprecated?: false // Completely optional but should be set to true once an extension is planned to no longer be maintained or the extension source has shutdown.
     description?: string
     icon?: string // URL or base64 encoded image that represents your source, it is suggested to use base64 encoding
 }
