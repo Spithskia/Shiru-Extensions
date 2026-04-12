@@ -39,14 +39,14 @@ export default new class Tosho extends AbstractSource {
     }) => ({
       title: title || torrent_name,
       link: magnet_uri,
-      seeders: seeders >= 30000 ? 0 : seeders,
-      leechers: leechers >= 30000 ? 0 : leechers,
+      seeders: seeders >= 30_000 ? 0 : seeders,
+      leechers: leechers >= 30_000 ? 0 : leechers,
       downloads: torrent_downloaded_count,
       hash: info_hash,
       size: total_size,
       accuracy: (anidb_fid && !batch) ? 'high' : 'medium',
       type: batch ? 'batch' : undefined,
-      date: new Date(timestamp * 1000)
+      date: new Date(timestamp * 1_000)
     }))
   }
 
@@ -59,6 +59,7 @@ export default new class Tosho extends AbstractSource {
   async #query(queryString, { resolution, exclusions, episodeCount }, batch = false) {
     const query = this.#buildQuery({ resolution, exclusions })
     const res = await fetch(this.url + queryString + query)
+    if (!res?.ok) throw new Error(`Failed to query source for results: HTTP ${res.status} ${res.statusText}`)
 
     /** @type {import('./types').Tosho[]} */
     const data = await res.json()
@@ -94,7 +95,7 @@ export default new class Tosho extends AbstractSource {
    * Checks if the source URL is reachable.
    * @returns {() => Promise<boolean>} True if fetch succeeds.
    */
-  async validate () {
+  async validate() {
     return (await fetch(this.url))?.ok
   }
 }()

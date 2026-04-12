@@ -2,7 +2,7 @@
   {
     "id": "seadex",
     "name": "SeaDex",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "main": "sources/seadex",
     "update": "gh:Spithskia/Shiru-Extensions/anisearch",
     "type": "torrent",
@@ -18,7 +18,7 @@
   {
     "id": "animetosho",
     "name": "Anime Tosho",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "main": "sources/tosho",
     "update": "gh:Spithskia/Shiru-Extensions/anisearch",
     "type": "torrent",
