@@ -20,9 +20,9 @@ export default new class Tosho extends AbstractSource {
   }
 
   /**
-   * @param {import('./types').Tosho[]} entries
+   * @param {import('./types.d.ts').Tosho[]} entries
    * @param {boolean} [batch=false]
-   * @returns {import('./').TorrentResult[]}
+   * @returns {import('../').TorrentResult[]}
    **/
   #map(entries, batch = false) {
     return entries.map(({
@@ -54,47 +54,38 @@ export default new class Tosho extends AbstractSource {
    * @param {string} queryString
    * @param {{ resolution?: string, exclusions?: string[], episodeCount?: number }} options
    * @param {boolean} [batch=false]
-   * @returns {Promise<import('./').TorrentResult[]>}
+   * @returns {Promise<import('../').TorrentResult[]>}
    */
   async #query(queryString, { resolution, exclusions, episodeCount }, batch = false) {
     const query = this.#buildQuery({ resolution, exclusions })
     const res = await fetch(this.url + queryString + query)
     if (!res?.ok) throw new Error(`Failed to query source for results: HTTP ${res?.status} ${res?.statusText}`)
 
-    /** @type {import('./types').Tosho[]} */
+    /** @type {import('../types').Tosho[]} */
     const data = await res.json()
     return data.length ? this.#map(!episodeCount ? data : data.filter(entry => entry.num_files > 1), batch) : []
   }
 
-  /**
-   * @type {import('./').SearchFunction}
-   */
+  /** @type {import('../').SearchFunction} */
   async single({ anidbEid, resolution, exclusions }) {
     if (!anidbEid) throw new Error('No anidbEid provided')
     return this.#query('?eid=' + anidbEid, { resolution, exclusions })
   }
 
-  /**
-   * @type {import('./').SearchFunction}
-   */
+  /** @type {import('../').SearchFunction} */
   async batch({ anidbAid, resolution, episodeCount, exclusions }) {
     if (!anidbAid) throw new Error('No anidbAid provided')
     if (episodeCount == null) throw new Error('No episodeCount provided')
     return this.#query('?order=size-d&aid=' + anidbAid, { resolution, exclusions, episodeCount }, true)
   }
 
-  /**
-   * @type {import('./').SearchFunction}
-   */
+  /** @type {import('../').SearchFunction} */
   async movie({ anidbAid, resolution, exclusions }) {
     if (!anidbAid) throw new Error('No anidbAid provided')
     return this.#query('?aid=' + anidbAid, { resolution, exclusions })
   }
 
-  /**
-   * Checks if the source URL is reachable.
-   * @returns {() => Promise<boolean>} True if fetch succeeds.
-   */
+  /** @returns {Promise<boolean>} */
   async validate() {
     return (await fetch(this.url))?.ok
   }

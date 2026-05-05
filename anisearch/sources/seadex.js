@@ -3,7 +3,7 @@ import AbstractSource from './abstract.js'
 export default new class SeaDex extends AbstractSource {
   url = atob('aHR0cHM6Ly9yZWxlYXNlcy5tb2UvYXBpL2NvbGxlY3Rpb25zL2VudHJpZXMvcmVjb3Jkcw==')
 
-  /** @type {import('./').SearchFunction} */
+  /** @type {import('../').SearchFunction} */
   async single({ anilistId, titles, episodeCount }) {
     if (!anilistId) throw new Error('No anilistId provided')
     if (!titles?.length) throw new Error('No titles provided')
@@ -18,7 +18,7 @@ export default new class SeaDex extends AbstractSource {
     const res = await fetch(`${this.url}?${query}`)
     if (!res?.ok) throw new Error(`Failed to query source for results: HTTP ${res?.status} ${res?.statusText}`)
 
-    /** @type {import('./types').SeaDex} */
+    /** @type {import('./types.d.ts').SeaDex} */
     const { items } = await res.json()
 
     const trs = items?.[0]?.expand?.trs
@@ -39,13 +39,17 @@ export default new class SeaDex extends AbstractSource {
         }))
   }
 
-  batch = this.single
-  movie = this.single
+  /** @type {import('../').SearchFunction} */
+  async batch(opts) {
+    return [] // single already gets batches from the anilistId
+  }
 
-  /**
-   * Checks if the source URL is reachable.
-   * @returns {() => Promise<boolean>} True if fetch succeeds.
-   */
+  /** @type {import('../').SearchFunction} */
+  async movie(opts) {
+    return [] // single already gets movies from the anilistId
+  }
+
+  /** @returns {Promise<boolean>} */
   async validate() {
     return (await fetch(this.url))?.ok
   }

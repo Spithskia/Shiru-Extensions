@@ -2,7 +2,7 @@
   {
     "id": "seadex",
     "name": "SeaDex",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "main": "sources/seadex",
     "update": "gh:Spithskia/Shiru-Extensions/anisearch",
     "type": "torrent",
