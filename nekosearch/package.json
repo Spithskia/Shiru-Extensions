@@ -1,0 +1,8 @@
+{
+  "name": "@spithskia/nekosearch",
+  "version": "1.0.0",
+  "description": "nekoBT Extension",
+  "license": "GPLv3",
+  "main": "index.json",
+  "types": "../index.d.ts"
+}
