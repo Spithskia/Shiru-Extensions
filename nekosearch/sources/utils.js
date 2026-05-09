@@ -1,5 +1,3 @@
-import { get, set } from 'https://esm.sh/idb-keyval'
-
 /**
  * @typedef {Object} EpisodeCacheEntry
  * @property {string} nekoId nekoBT internal episode ID
@@ -20,6 +18,12 @@ import { get, set } from 'https://esm.sh/idb-keyval'
  * @property {number|undefined} updatedAt
  */
 
+/** @type {number} */
+const DB_VERSION = 1
+/** @type {string} */
+const STORE_NAME = 'keyval'
+/** @type {string} */
+const DB_NAME = 'keyval-store'
 /** @type {number} */
 const TTL_MS = 60 * 24 * 60 * 60 * 1_000 // 60 days
 /** @type {Function} */
@@ -50,6 +54,42 @@ function debounce(fn, time = 0) {
     timeout = setTimeout(later, time)
     timeout.unref?.()
   }
+}
+
+/**
+ * Shared IndexedDB connection promise, opened once at module load.
+ * @type {Promise<IDBDatabase>}
+ */
+const open = new Promise((resolve, reject) => {
+  const request = indexedDB.open(DB_NAME, DB_VERSION)
+  request.onupgradeneeded = () => request.result.createObjectStore(STORE_NAME)
+  request.onsuccess = () => resolve(request.result)
+  request.onerror = () => reject(request.error)
+})
+
+/**
+ * @param {string} key
+ * @returns {Promise<any>}
+ */
+function get(key) {
+  return open.then(database => new Promise((resolve, reject) => {
+    const request = database.transaction(STORE_NAME).objectStore(STORE_NAME).get(key)
+    request.onsuccess = () => resolve(request.result)
+    request.onerror = () => reject(request.error)
+  }))
+}
+
+/**
+ * @param {string} key
+ * @param {any} value
+ * @returns {Promise<void>}
+ */
+function set(key, value) {
+  return open.then(database => new Promise((resolve, reject) => {
+    const request = database.transaction(STORE_NAME, 'readwrite').objectStore(STORE_NAME).put(value, key)
+    request.onsuccess = () => resolve()
+    request.onerror = () => reject(request.error)
+  }))
 }
 
 /**
