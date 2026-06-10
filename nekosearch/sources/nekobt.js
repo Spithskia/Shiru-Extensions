@@ -36,7 +36,10 @@ export default new class nekoBT extends AbstractSource {
     const audio_lang = this.settings.audioLanguage?.join(',') || undefined
     const params = new URLSearchParams({ media_id: mediaId, sort_by: 'seeders', limit: '100' })
     if (episode_ids?.length) params.set('episode_ids', episode_ids)
-    if (sub_lang) params.set('sub_lang', sub_lang)
+    if (sub_lang) {
+      params.set('sub_lang', sub_lang)
+      params.set('fsub_lang', sub_lang)
+    }
     if (audio_lang) params.set('audio_lang', audio_lang)
     return params
   }

@@ -2,7 +2,7 @@
   {
     "id": "nekobt",
     "name": "nekoBT",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "main": "sources/nekobt",
     "update": "gh:Spithskia/Shiru-Extensions/nekosearch",
     "type": "torrent",
