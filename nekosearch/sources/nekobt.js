@@ -50,7 +50,12 @@ export default new class nekoBT extends AbstractSource {
     const audioLanguages = torrent.audio_lang?.split(',') ?? []
     const title = torrent.title ?? torrent.auto_title?.replace(/\s*\{Tags:[^}]*}/g, '')
     return {
-      title: audioLanguages.length > 1 ? title.match(/DUAL/i) ? title : `${title} Dual Audio` : title,
+      title: (() => {
+        let _title = title
+        if (audioLanguages.length > 1 && !/DUAL/i.test(_title)) _title += ' Dual Audio'
+        if (!torrent.sub_lang?.length && !torrent.fsub_lang?.length && !/RAW/i.test(_title.slice(10))) _title += ' RAW'
+        return _title
+      })(),
       link: torrent.magnet,
       seeders: Number(torrent.seeders) || 0,
       leechers: Number(torrent.leechers) || 0,
