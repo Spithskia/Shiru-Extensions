@@ -8,8 +8,9 @@ Community-maintained extensions for Shiru.
 
 ## Available Sources
 
-- **anisearch** - SeaDex and Anime Tosho extensions.
+- **anisearch** - SeaDex and Anime Tosho (Archive) extensions.
 - **nyaasearch** - Nyaa and Sukebei extensions.
+- **nekosearch** - nekoBT extension.
 
 ## Installation
 
@@ -24,12 +25,13 @@ gh:Spithskia/Shiru-Extensions
 
 ### Add Individual Sources
 
-You can also add sources one at a time:
+You can also add extension sources one at a time:
 
-| Source | Source URL |
-|--------|------------|
-| anisearch | `gh:Spithskia/Shiru-Extensions/anisearch` |
+| Source     | Source URL                                 |
+|------------|--------------------------------------------|
+| anisearch  | `gh:Spithskia/Shiru-Extensions/anisearch`  |
 | nyaasearch | `gh:Spithskia/Shiru-Extensions/nyaasearch` |
+| nekosearch | `gh:Spithskia/Shiru-Extensions/nekosearch` |
 
 ## Support
 
@@ -43,7 +45,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](https://github.com/Spithskia/Shiru-Extensions/blob/main/LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0, see the [LICENSE](https://github.com/Spithskia/Shiru-Extensions/blob/main/LICENSE) file for details.
 
 ---
 
