@@ -1,0 +1,21 @@
+[
+  {
+    "id": "tsukihime",
+    "name": "TsukiHime",
+    "version": "0.0.1",
+    "main": "sources/tsuki",
+    "update": "gh:Spithskia/Shiru-Extensions/tsukisearch",
+    "type": "torrent",
+    "speed": "slow",
+    "accuracy": "medium",
+    "regions": [
+      "US",
+      "JP",
+      "CN",
+      "KR",
+      "UN"
+    ],
+    "description" : "An automated anime torrent mirror aggregating releases from multiple trackers, with episode-level metadata and broad series coverage. Results can be slow and intermittent, with limited torrent data such as no seeder or leecher counts.",
+    "icon": "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAulBMVEUAAAD/gID9V6r9WLDsX7PrWa3xXa7yXLDzWq/xXK/0XK71Xa/xW63zXK/zXLHzXK/xXq7zXa/xW67zXLDyXLDyXK7yXK/zXK/zXLDzXK/zXa/yXa/xXK7zXa/zXa/yXK/yXK/yXa/zXK/zXLDzXq/yXK/yXbDzXa/yXLHzXa/zXa/yXbDyXa/zXK/yXK/zXa/yXa/zXa/zXa/yXa/yXbDyXa/zXa/yXa/zXbDzXa/zXa/zXa/zXa/yXa8U1B7NAAAAPHRSTlMAAgMHCgwPERQYGx4kJisvNzk8Q0lMUVVYXGFob3N9f4OKj5qdoqqutru/xcrO1Nba3eDl6Ovw8/b5+/6Ci0kVAAADyElEQVR42t1X23pzQBStMU4hVRolDg0SlSCKVoTw/q/1x+CjbSSSy39dOcxe355Ze9bsefqfgQGAQ4IkcOyhcABpdi5IS1XmyQcYyGdJM9fuzg/2vqPczUCLquUGSVYhHBwevy/3+fIjOhSnqoP/RtwTz8hOkuUo/BECUlzt0i7ygSkw0jrKf8bnnjp5ETFKcQ9N8qfiWDTxscFOFoGSt1kTVhxi/ws9pTY/PX9le2in7du6FVZVWeX+K5y8fpKbtVk7Gs+aUf2cWPRk/cT1oUDxocXDp9k2K88v3gJO1n8VNfG+wZ5lm4fn5/LocGAiAZR3eROvczWfkNRv3xYzlWDupE3+Bof4FkiE6J2eqCG9TKoascU2KyojgtCYWkSim3Vl+xABqaIKLnyt3TeEdN8Unq26hE8Hm0fj715EsHDrBPJIbRNoZaymygi1oN5D2YfQfbmvkDDaRAmn+qyXxYzLyaUM2DXSIBJ75yDefFQXwZTNhM/dxjrYASnnHMe3M4YTw/MCF3ZoyTfM0FyM8FQre8lQMJJ/exucF1Dy670fm/QPZT6OyBE8jf1NwKqOPzwvCCWoh4YGNRw10+MCVadn8PCHZrzhZWfNerMl1X09cq+RT0O8bNLWYOxXGgKAnQEApF/tOO/tfpQALU1rUalvLTiGpiia4RaWn9bxZRUsyeEUqm4KPchlZ5J54jn2u2G8246XdL4fKMRwEat+EfsCU7dZ1SL/jsIw+kbRJfriS3BMxp5huUv7U7IH4tgJ+Ggh9YK/bKLj6TKBO8dHS7kH/qI74bELGiJbs2B0Mw3BvBqOF2dlS5JF4Reqj8SksfHtPASgOMl0w+TrjCR0V5ZfZ3QKNPjDUMrWUC5uHUjPOEFSFEngZmxTobm7AH8sLUOWNgJAUBRxjuHtxv6s5xFTvQFC84vG/sgxW78KnHcOSANXvHyw2Ox1AtaO0cBkSf852tDu/zTmV09A4zNHiju/h0HFyxsT1LnxeE4PmlE7GV4/3i8CZw0fxRfRigHXG4wLamKQt8K8KmsJ1yK41eIQf+TjNad2IqSARN5sslRhhg+Snwmq7Xd/twpzu82LPnSRZWiKJCmaYUW9bp9L9CvbytRooym7h4bhlGdp5G1MXdN0c+NFKWqfEbUrU9i1Vhfp3LlYHO73Yfw9+PS5lpjbzfYo0t1KJO9u9xHQrBJHZsDEC0d+Kn+Fn9d1OYdgUssmNFee3j+zJHAtVaDvuHQtukvXPvB37trUFs/kI9c+RVUVSZizNAQPXDzx+uJJEhDHAfb0H+MfM43/7BzJw58AAAAASUVORK5CYII="
+  }
+]
