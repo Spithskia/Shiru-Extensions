@@ -17,8 +17,8 @@
   },
   {
     "id": "animetosho",
-    "name": "Anime Tosho",
-    "version": "0.0.4",
+    "name": "Anime Tosho (Archive)",
+    "version": "0.0.5",
     "main": "sources/tosho",
     "update": "gh:Spithskia/Shiru-Extensions/anisearch",
     "type": "torrent",

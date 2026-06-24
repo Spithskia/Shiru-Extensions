@@ -14,9 +14,9 @@ export default new class Tosho extends AbstractSource {
    */
   #buildQuery({ resolution, exclusions }) {
     if (!exclusions?.length && !resolution) return ''
-    const base = `&qx=1&q=!("${exclusions.join('"|"')}")`
-    if (!resolution) return base
-    return `${base}!(*${QUALITIES.filter(q => q !== resolution).join('*|*')}*)`
+    const exclude = exclusions?.length ? `!("${exclusions.join('"|"')}")` : ''
+    const quality = resolution ? `!(*${QUALITIES.filter(quality => quality !== resolution).join('*|*')}*)` : ''
+    return `&qx=1&q=${exclude}${quality}`
   }
 
   /**
