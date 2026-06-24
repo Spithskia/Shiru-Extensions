@@ -8,7 +8,7 @@ Community-maintained extensions for Shiru.
 
 ## Available Sources
 
-- **anisearch** - SeaDex and Anime Tosho (Archive) extensions.
+- **anisearch** - SeaDex, Anime Tosho (New), and Anime Tosho (Archive) extensions.
 - **nyaasearch** - Nyaa and Sukebei extensions.
 - **nekosearch** - nekoBT extension.
 

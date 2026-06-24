@@ -1,6 +1,6 @@
 {
   "name": "@spithskia/shiru-extensions",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Shiru Extensions Provided by the Community",
   "license": "GPLv3",
   "main": "index.json",

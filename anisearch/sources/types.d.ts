@@ -38,3 +38,20 @@ export interface Tosho {
     anidb_fid?: number
     nzb_url?: string
 }
+
+export interface ToshoNew {
+    id: number
+    title: string
+    date?: string
+    hash: string
+    link: string
+    seeders: null
+    leechers: null
+    downloads?: number
+    size: number
+    is_batch: boolean
+    file_count: number
+    torrent_url?: string
+    view_url: string
+    nzb_url?: string
+}

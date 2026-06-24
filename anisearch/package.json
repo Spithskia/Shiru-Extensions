@@ -1,6 +1,6 @@
 {
   "name": "@spithskia/anisearch",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "SeaDex and Tosho Extensions",
   "license": "GPLv3",
   "main": "index.json",
