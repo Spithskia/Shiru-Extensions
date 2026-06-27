@@ -151,7 +151,7 @@ export const _fetch = async (url, retries = 6) => {
   for (let attempt = 0; attempt < retries; attempt++) {
     try {
       const res = await fetch(url)
-      if (res.status !== 500 || attempt === retries - 1) return res
+      if ((res.status !== 500 && res.status !== 502) || attempt === retries - 1) return res
     } catch (err) {
       if (attempt === retries - 1) throw err
     }
