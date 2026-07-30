@@ -37,7 +37,7 @@
   {
     "id": "animetosho-new",
     "name": "Anime Tosho (New)",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "sources/tosho-new",
     "update": "gh:Spithskia/Shiru-Extensions/anisearch",
     "type": "torrent",

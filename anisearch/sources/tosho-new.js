@@ -3,96 +3,91 @@ import AbstractSource from './abstract.js'
 const QUALITIES = ['2160', '1080', '720', '540', '480']
 
 export default new class ToshoNew extends AbstractSource {
-  url = atob('aHR0cHM6Ly9mZWVkLmFuaW1ldG9zaG8ueHl6L2pzb24vdjE=')
-  endpoint = atob('c2hpcnU=')
+  url = atob('aHR0cHM6Ly9mZWVkLmFuaW1ldG9zaG8ueHl6L2pzb24=')
 
   /**
-   * @param {import('./types.d.ts').ToshoNew[]} entries
-   * @param {string[]} [exclusions=[]]
-   * @returns {import('./types.d.ts').ToshoNew[]}
+   * @param {Object} params
+   * @param {string} [params.resolution]
+   * @param {string[]} [params.exclusions]
+   *
+   * @returns {string}
    */
-  #filter(entries, exclusions = []) {
-    if (!exclusions.length) return entries
-    const terms = exclusions.map(exclusion => exclusion.trim().toLowerCase()).filter(Boolean)
-    return entries.filter(({ title }) => !terms.some(term => title.toLowerCase().includes(term)))
+  #buildQuery({ resolution, exclusions }) {
+    if (!exclusions?.length && !resolution) return ''
+    const exclude = exclusions?.length ? `!("${exclusions.join('"|"')}")` : ''
+    const quality = resolution ? `!(*${QUALITIES.filter(quality => quality !== resolution).join('*|*')}*)` : ''
+    return `&qx=1&q=${exclude}${quality}`
   }
 
   /**
-   * @param {import('./types.d.ts').ToshoNew[]} entries
+   * @param {import('./types.d.ts').Tosho[]} entries
    * @param {boolean} [batch=false]
-   * @param {number|null} [anidb_fid=null] Results do not include the anidb id, but we can infer for now.
    * @returns {import('../').TorrentResult[]}
    **/
-  #map(entries, batch = false, anidb_fid = null) {
+  #map(entries, batch = false) {
     return entries.map(({
       title,
-      link,
+      torrent_name,
+      magnet_uri,
       seeders = 0,
       leechers = 0,
-      downloads = 0,
-      hash = '',
-      size,
-      date
+      torrent_downloaded_count = 0,
+      info_hash,
+      total_size,
+      anidb_fid,
+      anidb_eid,
+      timestamp
     }) => ({
-      title,
-      link,
+      title: title || torrent_name,
+      link: magnet_uri,
       seeders: seeders >= 30_000 ? 0 : seeders,
       leechers: leechers >= 30_000 ? 0 : leechers,
-      downloads,
-      hash: hash.toLowerCase(),
-      size,
-      accuracy: (anidb_fid && !batch) ? 'high' : 'medium',
+      downloads: torrent_downloaded_count,
+      hash: info_hash,
+      size: total_size,
+      accuracy: ((anidb_fid || anidb_eid) && !batch) ? 'high' : 'medium',
       type: batch ? 'batch' : undefined,
-      date: new Date(date ?? 0)
+      date: new Date(timestamp * 1_000)
     }))
   }
 
   /**
    * @param {string} queryString
-   * @param {{ resolution?: string, exclusions?: string[], episodeCount?: number, anidb_fid: number }} options
+   * @param {{ resolution?: string, exclusions?: string[], episodeCount?: number }} options
    * @param {boolean} [batch=false]
    * @returns {Promise<import('../').TorrentResult[]>}
    */
-  async #query(queryString, { resolution, exclusions, episodeCount, anidb_fid }, batch = false) {
-    const params = new URLSearchParams({
-      limit: '100',
-      ...(resolution && QUALITIES.includes(resolution) && { resolution: `${resolution}` })
-    })
-    const res = await fetch(`${this.url}/${this.endpoint}${queryString}&${params}`)
-
+  async #query(queryString, { resolution, exclusions, episodeCount }, batch = false) {
+    const query = this.#buildQuery({ resolution, exclusions })
+    const res = await fetch(this.url + queryString + query)
     if (!res?.ok) throw new Error(`Failed to query source for results: HTTP ${res?.status} ${res?.statusText}`)
-    /** @type {{ data: import('../types').ToshoNew[], ok: boolean }} */
-    const json = await res.json()
-    /** @type {import('../types').ToshoNew[]} */
-    const data = Array.isArray(json?.data) ? json.data : []
 
-    const filteredData = this.#filter(!episodeCount ? data : data.filter(entry => entry.file_count > 1 || entry.is_batch), exclusions)
-    return filteredData.length ? this.#map(filteredData, batch, anidb_fid) : []
+    /** @type {import('../types').Tosho[]} */
+    const data = await res.json()
+    return data.length ? this.#map(!episodeCount ? data : data.filter(entry => entry.num_files > 1), batch) : []
   }
 
   /** @type {import('../').SearchFunction} */
   async single({ anidbEid, resolution, exclusions }) {
     if (!anidbEid) throw new Error('No anidbEid provided')
-    return this.#query('?eid=' + anidbEid, { resolution, exclusions, anidb_fid: anidbEid })
+    return this.#query('?eid=' + anidbEid, { resolution, exclusions })
   }
 
   /** @type {import('../').SearchFunction} */
   async batch({ anidbAid, resolution, episodeCount, exclusions }) {
     if (!anidbAid) throw new Error('No anidbAid provided')
     if (episodeCount == null) throw new Error('No episodeCount provided')
-    return this.#query('?aid=' + anidbAid, { resolution, exclusions, episodeCount, anidb_fid: anidbAid }, true)
+    return this.#query('?order=size-d&aid=' + anidbAid, { resolution, exclusions, episodeCount }, true)
   }
 
   /** @type {import('../').SearchFunction} */
   async movie({ anidbAid, resolution, exclusions }) {
     if (!anidbAid) throw new Error('No anidbAid provided')
-    return this.#query('?aid=' + anidbAid, { resolution, exclusions, anidb_fid: anidbAid })
+    return this.#query('?aid=' + anidbAid, { resolution, exclusions })
   }
 
   /** @returns {Promise<boolean>} */
   async validate() {
-    const res = await fetch(this.url)
-    if (!res?.ok) return false
-    return !!(await res.json().catch(() => null))?.ok
+    return (await fetch(this.url))?.ok
   }
 }()
