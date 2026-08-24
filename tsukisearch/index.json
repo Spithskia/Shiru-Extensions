@@ -4,7 +4,7 @@
     "name": "TsukiHime",
     "version": "0.0.3",
     "main": "sources/tsuki",
-    "update": "gh:Spithskia/Shiru-Extensions/tsukisearch",
+    "update": ".",
     "type": "torrent",
     "speed": "slow",
     "accuracy": "medium",

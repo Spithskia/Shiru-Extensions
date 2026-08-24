@@ -4,7 +4,7 @@
     "name": "nekoBT",
     "version": "0.0.3",
     "main": "sources/nekobt",
-    "update": "gh:Spithskia/Shiru-Extensions/nekosearch",
+    "update": ".",
     "type": "torrent",
     "speed": "moderate",
     "accuracy": "high",
