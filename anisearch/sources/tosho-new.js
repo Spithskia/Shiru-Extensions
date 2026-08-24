@@ -88,6 +88,14 @@ export default new class ToshoNew extends AbstractSource {
 
   /** @returns {Promise<boolean>} */
   async validate() {
-    return (await fetch(this.url))?.ok
+    for (const mirror of [atob('aHR0cHM6Ly9mZWVkLmFuaW1ldG9zaG8ueHl6L2pzb24='), atob('aHR0cHM6Ly9mZWVkLmFuaW1ldG9zaG8ubmV0L2pzb24=')]) {
+      try {
+        if ((await fetch(mirror))?.ok) {
+          this.url = mirror
+          return true
+        }
+      } catch {}
+    }
+    return false
   }
 }()
