@@ -2,7 +2,7 @@
   {
     "id": "tsukihime",
     "name": "TsukiHime",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "main": "sources/tsuki",
     "update": "gh:Spithskia/Shiru-Extensions/tsukisearch",
     "type": "torrent",

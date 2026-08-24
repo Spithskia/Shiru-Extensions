@@ -1,6 +1,6 @@
 {
   "name": "@spithskia/tsukisearch",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "TsukiHime Extension",
   "license": "GPLv3",
   "main": "index.json",

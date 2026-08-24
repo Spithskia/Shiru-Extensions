@@ -1,5 +1,5 @@
 import AbstractSource from './abstract.js'
-import { _fetch, resolveMediaId } from './utils.js'
+import { _fetch, getTsukiId } from './utils.js'
 
 const QUALITIES = ['2160', '1080', '720', '540', '480']
 
@@ -75,26 +75,27 @@ export default new class TsukiHime extends AbstractSource {
   }
 
   /** @type {import('../').SearchFunction} */
-  async single({ anidbAid, anilistId, episode, resolution, exclusions }) {
-    if (!anidbAid && !anilistId) throw new Error('No anidbAid or anilistId provided')
-    const tsukiId = await resolveMediaId(this.url, anidbAid || anilistId, !anidbAid)
-    if (!tsukiId || episode == null) return []
+  async single({ anidbAid, anilistId, media, episode, resolution, exclusions }) {
+    if (!anidbAid && !anilistId && !media?.idMal) throw new Error('No anidbAid, anilistId or idMal provided')
+    if (episode == null) return []
+    const tsukiId = await getTsukiId(this.url, anilistId, anidbAid, media?.idMal)
+    if (!tsukiId) return []
     return this.#query(tsukiId, { episode, resolution, exclusions })
   }
 
   /** @type {import('../').SearchFunction} */
-  async batch({ anidbAid, anilistId, resolution, exclusions }) {
-    if (!anidbAid && !anilistId) throw new Error('No anidbAid or anilistId provided')
-    const tsukiId = await resolveMediaId(this.url, anidbAid || anilistId, !anidbAid)
+  async batch({ anidbAid, anilistId, media, resolution, exclusions }) {
+    if (!anidbAid && !anilistId && !media?.idMal) throw new Error('No anidbAid, anilistId or idMal provided')
+    const tsukiId = await getTsukiId(this.url, anilistId, anidbAid, media?.idMal)
     if (!tsukiId) return []
     return this.#query(tsukiId, { resolution, exclusions, batch: true })
   }
 
   /** @type {import('../').SearchFunction} */
-  async movie({ anidbAid, anilistId, episodeCount, resolution, exclusions }) {
+  async movie({ anidbAid, anilistId, media, episodeCount, resolution, exclusions }) {
     if (episodeCount > 1) return []
-    if (!anidbAid && !anilistId) throw new Error('No anidbAid or anilistId provided')
-    const tsukiId = await resolveMediaId(this.url, anidbAid || anilistId, !anidbAid)
+    if (!anidbAid && !anilistId && !media?.idMal) throw new Error('No anidbAid, anilistId or idMal provided')
+    const tsukiId = await getTsukiId(this.url, anilistId, anidbAid, media?.idMal)
     if (!tsukiId) return []
     return this.#query(tsukiId, { resolution, exclusions, movie: true })
   }

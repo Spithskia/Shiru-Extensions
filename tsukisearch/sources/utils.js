@@ -98,30 +98,30 @@ await loadCache() // load cache
  * Finds a cached entry by any of its external IDs.
  *
  * @param {number|undefined} id
- * @param {boolean} isAnilist
+ * @param {'anidb'|'anilist'|'mal'} type
  * @returns {{ tsukiId: string, entry: MediaCacheEntry }|undefined}
  */
-function findCached(id, isAnilist) {
+function findCached(id, type) {
   for (const [tsukiId, entry] of mediaCache) {
-    if ((id && (isAnilist ? entry.anilistId === id : entry.anidbId === id))) {
+    if ((id && (type === 'anilist' ? entry.anilistId === id : type === 'anidb' ? entry.anidbId === id : entry.malId === id))) {
       return { tsukiId, entry }
     }
   }
 }
 
 /**
- * Resolves the TsukiHime internal media ID from an anidb or anilist ID.
+ * Resolves the TsukiHime internal media ID from an anilist, anidb or myanimelist ID.
  *
  * @param {string} url
  * @param {number} id
- * @param {boolean} isAnilist
+ * @param {'anidb'|'anilist'|'mal'} type
  * @returns {Promise<string|null>}
  */
-export async function resolveMediaId(url, id, isAnilist) {
-  const cached = findCached(id, isAnilist)
+export async function resolveMediaId(url, id, type) {
+  const cached = findCached(id, type)
   if (cached) return cached.tsukiId
 
-  const res = await _fetch(`${url}/animes/${isAnilist ? 'anilist' : 'anidb'}/${id}`)
+  const res = await _fetch(`${url}/animes/${type}/${id}`)
   if (!res.ok) {
     if (res.status === 404) return null
     throw new Error(`Failed to resolve media ID: HTTP ${res.status} ${res.statusText}`)
@@ -138,6 +138,29 @@ export async function resolveMediaId(url, id, isAnilist) {
   })
   persistCache()
   return String(data.id)
+}
+
+/**
+ * Gets the TsukiHime internal media ID from an anilist, anidb or myanimelist ID.
+ *
+ * @param {string} url
+ * @param {number} [anilistId]
+ * @param {number} [anidbAid]
+ * @param {number} [malId]
+ * @returns {Promise<string|null>}
+ */
+export async function getTsukiId(url, anilistId, anidbAid, malId) {
+  let tsukiId = null
+  const candidates = [
+    anilistId && { id: anilistId, type: 'anilist' },
+    anidbAid && { id: anidbAid, type: 'anidb' },
+    malId && { id: malId, type: 'mal' }
+  ].filter(Boolean)
+  for (const { id, type } of candidates) {
+    tsukiId = await resolveMediaId(url, id, type)
+    if (tsukiId) break
+  }
+  return tsukiId
 }
 
 /**
