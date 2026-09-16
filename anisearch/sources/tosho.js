@@ -87,6 +87,6 @@ export default new class Tosho extends AbstractSource {
 
   /** @returns {Promise<boolean>} */
   async validate() {
-    return (await fetch(this.url))?.ok
+    return (await fetch(this.url + atob('P3E9d2Urc3RpbGwrdXNlK2FwaQ==')))?.ok
   }
 }()
