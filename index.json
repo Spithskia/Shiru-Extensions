@@ -1,14 +1,14 @@
 [
   {
-    "main": "gh:Spithskia/Shiru-Extensions/tsukisearch"
+    "main": "tsukisearch"
   },
   {
-    "main": "gh:Spithskia/Shiru-Extensions/nekosearch"
+    "main": "nekosearch"
   },
   {
-	"main": "gh:Spithskia/Shiru-Extensions/nyaasearch"
+	"main": "nyaasearch"
   },
   {
-	"main": "gh:Spithskia/Shiru-Extensions/anisearch"
+	"main": "anisearch"
   }
 ]
