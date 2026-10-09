@@ -3,7 +3,7 @@ import AbstractSource from './abstract.js'
 const QUALITIES = ['2160', '1080', '720', '540', '480']
 
 export default new class ToshoNew extends AbstractSource {
-  url = atob('aHR0cHM6Ly9mZWVkLmFuaW1ldG9zaG8ueHl6L2pzb24=')
+  url = atob('aHR0cHM6Ly9mZWVkLmFuaW1ldG9zaG8ubmV0L2pzb24=')
 
   /**
    * @param {Object} params
@@ -88,14 +88,6 @@ export default new class ToshoNew extends AbstractSource {
 
   /** @returns {Promise<boolean>} */
   async validate() {
-    for (const mirror of [atob('aHR0cHM6Ly9mZWVkLmFuaW1ldG9zaG8ueHl6L2pzb24='), atob('aHR0cHM6Ly9mZWVkLmFuaW1ldG9zaG8ubmV0L2pzb24=')]) {
-      try {
-        if ((await fetch(mirror))?.ok) {
-          this.url = mirror
-          return true
-        }
-      } catch {}
-    }
-    return false
+    return (await fetch(this.url))?.ok
   }
 }()
