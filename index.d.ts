@@ -76,6 +76,9 @@ export interface TorrentResult {
     seeders: number
     leechers: number
     downloads: number
+    sub_lang: string[]
+    audio_lang: string[]
+    dual_audio: boolean
     accuracy?: Accuracy
     hash: string
     size: number

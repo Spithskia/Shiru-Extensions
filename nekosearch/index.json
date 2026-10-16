@@ -2,19 +2,12 @@
   {
     "id": "nekobt",
     "name": "nekoBT",
-    "version": "0.0.3",
+    "version": "0.1.0",
     "main": "sources/nekobt",
     "update": "gh:Spithskia/Shiru-Extensions/nekosearch",
     "type": "torrent",
     "speed": "moderate",
     "accuracy": "high",
-    "regions": [
-      "US",
-      "JP",
-      "CN",
-      "KR",
-      "UN"
-    ],
     "settings": [
       {
         "type": "multiselect",

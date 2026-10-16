@@ -1,6 +1,7 @@
 export interface nekoBT {
   error: boolean
-  data: {
+  message?: string
+  data?: {
     results: nekoBTTorrent[]
     infohash_match: string | null
     recommended_media: nekoBTMedia[] | null
@@ -104,15 +105,26 @@ export interface nekoBTMedia {
   year?: number
   alternate_titles: string[]
   episodes?: nekoBTEpisode[]
+  anilist?: { entries?: nekoBTAnilistMapping[] }
   similarity?: number
+}
+
+export interface nekoBTAnilistMapping {
+  anilist_id: number
+  season: number | null
+  src_start: number
+  src_end: number | null
+  dst_start: number
+  dst_end: number | null
+  ratio: number | null
 }
 
 export interface nekoBTEpisode {
   id: number
   title: string
-  season: number
-  episode: number
-  absolute?: number
+  season?: number | null
+  episode?: number | null
+  absolute?: number | null
   overview?: string
   runtime: number
   airDateUtc: string
@@ -121,7 +133,8 @@ export interface nekoBTEpisode {
 
 export interface nekoBTSearch {
   error: boolean
-  data: {
+  message?: string
+  data?: {
     more: boolean
     results: nekoBTMedia[]
   }
