@@ -1,7 +1,12 @@
 import AbstractSource from './abstract.js'
 
+const URLS = [
+  atob('aHR0cHM6Ly9zZWFkZXgubW9lL2FwaS9jb2xsZWN0aW9ucy9lbnRyaWVzL3JlY29yZHM='),
+  atob('aHR0cHM6Ly9yZWxlYXNlcy5tb2UvYXBpL2NvbGxlY3Rpb25zL2VudHJpZXMvcmVjb3Jkcw==')
+]
+
 export default new class SeaDex extends AbstractSource {
-  url = atob('aHR0cHM6Ly9yZWxlYXNlcy5tb2UvYXBpL2NvbGxlY3Rpb25zL2VudHJpZXMvcmVjb3Jkcw==')
+  url = URLS[0]
 
   /** @type {import('../').SearchFunction} */
   async single({ anilistId, titles, episodeCount }) {
@@ -51,6 +56,14 @@ export default new class SeaDex extends AbstractSource {
 
   /** @returns {Promise<boolean>} */
   async validate() {
-    return (await fetch(this.url))?.ok
+    for (const url of URLS) {
+      try {
+        if (!(await fetch(`${url}?perPage=1`))?.ok) continue
+
+        this.url = url
+        return true
+      } catch {}
+    }
+    return false
   }
 }()
